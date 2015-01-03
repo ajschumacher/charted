@@ -21,7 +21,13 @@ $(function () {
 
   pageController.socket = new WebSocket("ws://localhost:4808/data");
   pageController.socket.onmessage = function(event) {
-    alert(event.data);
-  };
+    if (!this.parameters || this.parameters.dataUrl) {
+      // no plot or non-gog plot
+      alert("replace with " + event.data);
+    } else {
+      // existing gog plot to update
+      alert("update with " + event.data);
+    };
+  }.bind(pageController);
 
 })
