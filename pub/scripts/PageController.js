@@ -29,15 +29,17 @@ PageController.prototype.setupPage = function (urlParameters) {
   this.$body.addClass('loading')
   this.updatePageTitle('Charted (...)')
   this.parameters = urlParameters
-  this.parameters.dataUrl = this.prepareDataUrl(this.parameters.dataUrl)
   this.parameters.charts = this.parameters.charts || [{}]
   this.clearExisting()
 
-  // populate charts and refresh every 30 minutes
-  this.resetCharts()
-  setInterval(function () {
+  if (this.parameters.dataUrl) {
+    this.parameters.dataUrl = this.prepareDataUrl(this.parameters.dataUrl)
+    // populate charts and refresh every 30 minutes
     this.resetCharts()
-  }.bind(this), 1000 * 60 * 30)
+    setInterval(function () {
+      this.resetCharts()
+    }.bind(this), 1000 * 60 * 30)
+  };
 }
 
 
