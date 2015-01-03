@@ -18,4 +18,10 @@ $(function () {
   // parse the url on page load and every state change
   pageController.useUrl()
   $(window).on('popstate', pageController.useUrl.bind(pageController))
+
+  pageController.socket = new WebSocket("ws://localhost:4808/data");
+  pageController.socket.onmessage = function(event) {
+    alert(event.data);
+  };
+
 })
