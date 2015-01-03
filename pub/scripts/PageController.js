@@ -87,23 +87,27 @@ PageController.prototype.resetCharts = function () {
   this.fetchData(this.parameters.dataUrl, function (data) {
     this.setupPageSettings()
     this.data = data
-
-    // set first title
-    if (!this.parameters.charts[0].title) {
-      this.parameters.charts[0].title = data.getSeriesCount() > 1 ? 'Chart' : data.getSeries(0).label
-    }
-
-    this.$body.removeClass('pre-load loading error')
-
-    // update charts
-    this.parameters.charts.forEach(function (chart, i) {
-      this.updateChart(i)
-    }.bind(this))
-
-    this.setDimensions()
-    this.updatePageState()
+    this.drawCharts()
   }.bind(this))
 }
+
+
+PageController.prototype.drawCharts = function () {
+  // set first title
+  if (!this.parameters.charts[0].title) {
+    this.parameters.charts[0].title = this.data.getSeriesCount() > 1 ? 'Chart' : this.data.getSeries(0).label
+  }
+
+  this.$body.removeClass('pre-load loading error')
+
+  // update charts
+  this.parameters.charts.forEach(function (chart, i) {
+    this.updateChart(i)
+  }.bind(this))
+
+  this.setDimensions()
+  this.updatePageState()
+};
 
 
 PageController.prototype.fetchData = function (dataUrl, callback) {
