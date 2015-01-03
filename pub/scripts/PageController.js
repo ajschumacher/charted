@@ -59,7 +59,7 @@ PageController.prototype.setupPageSettings = function () {
    // set background color
   this.applyColor()
 
-  // bind intereactions
+  // bind interactions
   $pageSettings.find('.settings').click(function (event) {
     event.stopPropagation()
     $pageSettings.addClass('open')
